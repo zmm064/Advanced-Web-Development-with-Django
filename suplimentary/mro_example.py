@@ -9,7 +9,6 @@ class Parent2:
         print("I am Parent2")
         return super(Parent2, self).speak()
 
-
 class Child(Parent2, Parent1):
     pass
 
