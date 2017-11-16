@@ -45,8 +45,7 @@ class DeleteView(generic.DeleteView):
 class VoteView(generic.View):
 
     def get_queryset(self, question_id, choice_id):
-        question = Question.objects.get(pk=question_id)
-        return question.choice_set.get(pk=choice_id)
+        return Choice.objects.get(pk=choice_id)
 
     def post(self, request, pk):
         question_id = pk
@@ -54,11 +53,11 @@ class VoteView(generic.View):
         try:
             queryset = self.get_queryset(question_id, choice_id)
         except (KeyError, Choice.DoesNotExist):
-            return redirect('/polls/' + question_id)
+            return redirect('polls:detail', pk=question_id)
         else:
             queryset.votes += 1
             queryset.save()
-            return redirect('/polls/' + question_id + '/results/')
+            return redirect('polls:results', pk=question_id)
 
 
 class ResultsView(TemplateResponseMixin, generic.View):
@@ -68,7 +67,6 @@ class ResultsView(TemplateResponseMixin, generic.View):
         return Question.objects.get(pk=question_id)
 
     def get(self, request, pk):
-        print(pk)
         queryset = self.get_queryset(pk)
         context = {'question': queryset}
         return self.render_to_response(context)
