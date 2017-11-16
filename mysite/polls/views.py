@@ -57,7 +57,7 @@ class VoteView(generic.View):
         else:
             queryset.votes += 1
             queryset.save()
-            return redirect('polls:results', pk=question_id)
+            return redirect('polls:vote_result', pk=question_id)
 
 
 class ResultsView(TemplateResponseMixin, generic.View):
@@ -70,3 +70,13 @@ class ResultsView(TemplateResponseMixin, generic.View):
         queryset = self.get_queryset(pk)
         context = {'question': queryset}
         return self.render_to_response(context)
+
+
+class SwitchboardView(generic.View):
+    def get(self, request, pk):
+        view = ResultsView.as_view()
+        return view(request, pk)
+
+    def post(self, request, pk):
+        view = VoteView.as_view()
+        return view(request, pk)
