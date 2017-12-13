@@ -1,4 +1,3 @@
-from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 
 from rest_framework import authentication
@@ -12,7 +11,7 @@ class AdminOnlyAuth(authentication.BaseAuthentication):
             username = request.query_params.get('username')
             password = request.query_params.get('password')
             user = authenticate(username=username, password=password)
-            if user is None:
+            if user is None or user.is_superuser is False:
                 raise exceptions.AuthenticationFailed('No such user!')
             return(user, None)
         except:
