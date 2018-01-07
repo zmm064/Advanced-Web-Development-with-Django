@@ -9,6 +9,7 @@ class ChoiceInstanceInline(admin.TabularInline):
 
 
 class QuestionAdmin(admin.ModelAdmin):
+    list_display = ['pk', 'question_text', 'pub_date', ]
     inlines = [ChoiceInstanceInline]
 
 
