@@ -25,14 +25,14 @@ class DeleteView(generic.DeleteView):
 
 class VoteView(generic.View):
 
-    def get_queryset(self, question_id, choice_id):
+    def get_queryset(self, choice_id):
         return Choice.objects.get(pk=choice_id)
 
     def post(self, request, pk):
         question_id = pk
         choice_id = request.POST.get('choice', None)
         try:
-            queryset = self.get_queryset(question_id, choice_id)
+            queryset = self.get_queryset(choice_id)
         except (KeyError, Choice.DoesNotExist):
             return redirect('polls:detail', pk=question_id)
         else:
