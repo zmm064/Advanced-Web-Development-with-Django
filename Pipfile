@@ -7,7 +7,7 @@ name = "pypi"
 
 [packages]
 
-Django = "*"
+django = "*"
 django-rest-framework = "*"
 djangorestframework = "*"
 graphene = "*"
@@ -15,12 +15,14 @@ graphene-django = "*"
 graphql-core = "*"
 graphql-relay = "*"
 "iso8601" = "*"
-Markdown = "*"
+markdown = "*"
 promise = "*"
 pytz = "*"
-Rx = "*"
+rx = "*"
 singledispatch = "*"
 typing = "*"
+model-mommy = "*"
+coverage = "*"
 
 
 [dev-packages]
