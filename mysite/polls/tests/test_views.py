@@ -1,6 +1,5 @@
 from django.test import TestCase
 from django.test import RequestFactory
-from django.urls import reverse
 
 from model_mommy import mommy
 
@@ -37,7 +36,6 @@ class TestVoteView(TestCase):
 
     def test_post_redirects_on_fail(self):
         choice = self.choice_models[2]
-        votes = choice.votes + 1
         request = self.factory.post(
             '/some-fake/url/',
             data={'choice': 500}
